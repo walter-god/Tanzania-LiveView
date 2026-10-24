@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tanzania LiveView</title>
+    <meta name="description" content="Nationwide visual map that displays publicly available and legally authorized live camera feeds across Tanzania." />
+    <meta property="og:title" content="Tanzania LiveView" />
+    <meta property="og:description" content="Nationwide visual map that displays publicly available and legally authorized live camera feeds across Tanzania." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/cesium/Widgets/widgets.css" />
+    <script>
+      window.CESIUM_BASE_URL = '/cesium/';
+      // Intercept any unwanted Cesium Ion requests to prevent 401 INVALID_TOKEN errors
+      (function() {
+        const nativeFetch = window.fetch;
+        if (nativeFetch) {
+          window.fetch = function(input, init) {
+            try {
+              const url = typeof input === 'string' ? input : (input && input.url) ? input.url : '';
+              if (url && url.includes('api.cesium.com')) {
+                return Promise.resolve(new Response(JSON.stringify({}), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' }
+                }));
+              }
+            } catch (e) {}
+            return nativeFetch.apply(this, arguments);
+          };
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

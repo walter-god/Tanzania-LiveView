@@ -1,0 +1,7 @@
+{
+  "name": "Tanzania LiveView",
+  "description": "Nationwide visual map that displays publicly available and legally authorized live camera feeds across Tanzania.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
